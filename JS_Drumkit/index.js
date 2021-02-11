@@ -1,29 +1,39 @@
-var list_of_sounds = ["a","s","d","f","g","h","j","k","l"];
 
-$("body").keypress(function (e) { 
-    if(list_of_sounds.includes(e.key)){
-        var id = "#"+e.key;
-        addAnimation(id);
-        addSound(id);
-    }
-});
+// selecting keys
+var key_list = Array.from(
+   document.querySelectorAll(".key"));
 
-$(".key").click(function (e) { 
-    e.preventDefault();
-    var id = "#"+$(this).attr("id");
-    addSound(id);
-});
+// adding event listners 
 
-function addAnimation(id){
-    $(id).addClass("playing");
-    setTimeout(function(){
-        $(id).removeClass("playing");
-    },100);
+key_list.forEach(key => {
+  // console.log(key);
+  key.addEventListener('click',playSound1)});
+window.addEventListener('keydown',playSound2);
+
+
+
+function playSound1(e){
+
+  var dataKey = e.target.dataset.key;
+  // console.log(dataKey);
+  var audioEle = document.querySelector(`audio[data-key = "${dataKey}"]`);
+  audioEle.play();
+  animate(e.target);
 }
 
-function addSound(id) {
-    var adress = id + " span";
-    var sound_file = $(adress).html().toLocaleLowerCase() + ".wav";
-    var audio = new Audio("sounds/"+sound_file);
-    audio.play();
-  }
+function playSound2(e){
+  // console.log(e.keyCode);
+  var item = document.querySelector(`div[data-key = "${e.keyCode}"]`);
+  console.log(item);
+  if(item === null) return;
+  var itemSound = document.querySelector(`audio[data-key = "${e.keyCode}"]`);
+  itemSound.play();
+  animate(item);
+}
+
+function animate(e){
+  e.classList.add('playing');
+  setTimeout(()=>{
+    e.classList.remove('playing');
+  },200);
+}
