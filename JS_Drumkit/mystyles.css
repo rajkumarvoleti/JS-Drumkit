@@ -45,7 +45,7 @@ body {
 /* background */
 
 .wrapper {
-  background: url("images/drum_background.jpg");
+  background: url("drum_background.jpg");
   background-size: cover;
   height: 100vh;
   display: grid;
