@@ -1,44 +1,128 @@
+/* BASIC */
+
+:root {
+  --yellow: #ffc600;
+  --black: #272727;
+}
+
+html {
+  /* border-box box model allows us to add padding and border to our elements without increasing their size */
+  box-sizing: border-box;
+  /* A system font stack so things load nice and quick! */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+/*
+  WAT IS THIS?!
+  We inherit box-sizing: border-box; from our <html> selector
+  Apparently this is a bit better than applying box-sizing: border-box; directly to the * selector
+*/
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 5px 0;
+}
+
+.item p {
+  margin: 0 0 5px 0;
+}
+
 body {
-  text-align: center;
-  background: url("https://i.imgur.com/b9r5sEL.jpg");
-  background-position: bottom;
+  margin: 0;
+}
+
+/* background */
+
+.wrapper {
+  background: url("background.jpg");
   background-size: cover;
-  background-attachment: fixed;
-}
-
-h1 {
-  color: white;
-  font-size: 2rem;
-  padding-top: 0.8rem;
-}
-
-span {
-  color: #f2af29;
-  font-size: 0.8rem;
+  height: 100vh;
+  display: grid;
+  align-items: center;
 }
 
 .keys {
-  padding: 20rem 3rem 5rem 3rem;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,
+  minmax(50px,1fr));
+  grid-gap: 20px;
+  padding: 100px;
+  justify-content: center;
 }
 
 .key {
-  display: inline-block;
-  margin: 1%;
-  border: 0.2rem solid black;
-  border-radius: 0.5rem;
-  width: 6rem;
-  height: 6rem;
-  backdrop-filter: blur(3px);
+  border: 4px solid black;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.key kbd {
+  display: block;
+  background: none;
+  font-size: 45px;
+  font-family: serif;
+}
+
+.key span {
+  position: relative;
+  bottom: 5px;
+  font-size: 12px;
+  color: var(--yellow);
+}
+
+@media(max-width:800px) and (min-width:500px){
+  .keys {
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(2,1fr);
+  }
+  .key {
+    grid-column: span 2;
+  }
+  .extra {
+    grid-column: 4/6;
+  }
+}
+
+@media(max-width:500px){
+  .keys {
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    padding: 70px;
+  }
+}
+
+/* animation */
+
+.playing {
+  transform: scale(1.1);
+  background: var(--yellow);
+  box-shadow: 0 0 1rem var(--yellow);
+  border: 4px solid var(--black);
+  transition: 0.1s;
+}
+
+.playing span{
+  color: white;
+}
+
+.key *{
+  pointer-events: none;
 }
 
 .key:hover {
-  border-color: #f2af29;
-  box-shadow: 0 0 1rem #f2af29;
-  transform: scale(1.1);
-}
-
-.playing {
-  border-color: #f2af29;
-  box-shadow: 0 0 1rem #f2af29;
-  transform: scale(1.1);
+  box-shadow: 0 0 1rem var(--yellow);
 }
